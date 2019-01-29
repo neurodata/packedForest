@@ -78,7 +78,9 @@ int main(int argc, char* argv[]) {
 		forest.setParameter("numCores", numCores);
 
 		std::cout << "growing";
+		LIKWID_MARKER_START("mtry");
 		forest.growForest();
+		LIKWID_MARKER_STOP("mtry");
 
 		std::cout << "grew" << std::endl;
 		forest.printParameters();

@@ -1,5 +1,5 @@
-#ifndef fpDataSet_h
-#define fpDataSet_h
+#ifndef inputCSVData_h
+#define inputCSVData_h
 #include <vector>
 #include <iostream>
 #include "fpReadCSV.h"
@@ -142,4 +142,4 @@ namespace fp {
 	};
 
 } //namespace fp
-#endif //fpDataSet_h
+#endif //inputCSVData_h

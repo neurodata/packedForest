@@ -88,17 +88,18 @@ namespace fp {
 
 				inline void growForest(){
 					timeLogger x;
-					x.startGrowTimer();
 					loadData();
-					x.stopGrowTimer();
-					x.printGrowTime();
+					x.startGrowTimer();
+					//	x.stopGrowTimer();
+					//	x.printGrowTime();
 					initializeForestType();
 					setDataDependentParameters();
 					//	setNumberOfThreads();
 					forest->growForest();
+					deleteData();
 					x.stopGrowTimer();
 					x.printGrowTime();
-					deleteData();
+
 				}
 
 

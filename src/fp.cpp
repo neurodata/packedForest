@@ -8,7 +8,7 @@ int main(int argc, char* argv[]) {
 	int dataSet = atoi(argv[2]);
 	int numCores = atoi(argv[3]);
 
-//		 fp::timeLogger logTime;
+	//		 fp::timeLogger logTime;
 	/*
 		 logTime.startFindSplitTimer();
 		 fp::inNodeClassIndices test(100000000);
@@ -38,10 +38,10 @@ int main(int argc, char* argv[]) {
 				forest.setParameter("forestType", "rfBase");
 				forest.setParameter("useBinning", 1000);
 				break;
-case 5:
+			case 5:
 				forest.setParameter("forestType", "inPlace");
 				break;
-case 6:
+			case 6:
 				forest.setParameter("forestType", "inPlaceRerF");
 				break;
 
@@ -69,6 +69,14 @@ case 6:
 				forest.setParameter("CSVFileName", "res/HIGGS.csv");
 				forest.setParameter("columnWithY", 0);
 				break;
+			case 5:
+				forest.setParameter("CSVFileName", "../experiments/res/higgsData.csv");
+				forest.setParameter("columnWithY", 0);
+				break;
+			case 6:
+				forest.setParameter("CSVFileName", "../experiments/res/p53.csv");
+				forest.setParameter("columnWithY", 5408);
+				break;
 			default:
 				std::cout << "unknown dataset selected" << std::endl;
 				return -1;
@@ -80,10 +88,10 @@ case 6:
 		forest.setParameter("minParent", 1);
 		forest.setParameter("numCores", numCores);
 
-		 //logTime.startFindSplitTimer();
+		//logTime.startFindSplitTimer();
 		forest.growForest();
-		 //logTime.stopFindSplitTimer();
-		 //logTime.printGrowTime();
+		//logTime.stopFindSplitTimer();
+		//logTime.printGrowTime();
 
 		forest.printParameters();
 		forest.printForestType();

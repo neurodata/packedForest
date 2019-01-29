@@ -1,14 +1,14 @@
 #ifndef fpData_h
 #define fpData_h
 
-#include "dataset/fpDataSet.h"
+#include "dataset/inputCSVData.h"
 #include "dataset/inputMatrixData.h"
 #include "fpInfo.h"
 #include <string>
 #include <vector>
 
 using DATA_TYPE_X = double;
-using DATA_TYPE_Y = double;
+using DATA_TYPE_Y = int;
 
 namespace fp {
 
@@ -57,6 +57,12 @@ inData->printXValues();
 				}else{
 					throw std::runtime_error("Unable to read data." );
 				}
+				setDataRelatedParameters(settings);
+			}
+
+
+			void fpLoadData(std::vector<std::vector<DATA_TYPE_X> >& Xvals, std::vector<DATA_TYPE_Y>& Yvals,fpInfo& settings){
+					inData = new inputMatrixData<DATA_TYPE_X, DATA_TYPE_Y>(Xvals, Yvals);
 				setDataRelatedParameters(settings);
 			}
 
