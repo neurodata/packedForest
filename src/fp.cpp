@@ -44,6 +44,14 @@ int main(int argc, char* argv[]) {
 			case 6:
 				forest.setParameter("forestType", "inPlaceRerF");
 				break;
+			case 7:
+				forest.setParameter("forestType", "binnedBase");
+				break;
+			case 8:
+				forest.setParameter("forestType", "binnedBaseRerF");
+				break;
+
+
 
 			default:
 				std::cout << "unknown alg selected" << std::endl;

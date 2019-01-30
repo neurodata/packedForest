@@ -78,7 +78,7 @@ namespace fp {
 			}
 
 			inline int genRandom(int range){
-return fpForestInfo.genRandom(range);
+				return fpForestInfo.genRandom(range);
 			}
 
 			///////////////////////////////////////
@@ -164,7 +164,7 @@ return fpForestInfo.genRandom(range);
 
 			inline void setDataDependentParameters(){
 				fpForestInfo.setMTRY();
-initializeRandomNumberGenerator();
+				initializeRandomNumberGenerator();
 			}
 
 

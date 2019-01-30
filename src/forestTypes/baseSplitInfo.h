@@ -53,6 +53,10 @@ namespace fp{
 					return rightImpurity;
 				}
 
+				inline bool perfectSplitFound(){
+					return impurity == 0;
+				}
+
 		};
 
 }//namespace fp

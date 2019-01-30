@@ -8,10 +8,10 @@ class alignas(32) fpBaseNode
 {
 	protected:
 		int left;
+		F feature;
 		T cutValue;
 		int right;
 		int depth;
-		F feature;
 
 	public:
 		fpBaseNode():left(0), right(0), depth(0){}
@@ -59,6 +59,12 @@ class alignas(32) fpBaseNode
 			left = 0;
 		}
 
+inline void setSharedClass(int classNum){
+			right = classNum;
+			left = -1;
+			depth = -1;
+		}
+
 		inline void setLeftValue(int LVal){
 			left = LVal;	
 		}
@@ -75,7 +81,7 @@ class alignas(32) fpBaseNode
 			feature = fVal;
 		}
 
-inline void setFeatureValue(std::vector<int>& fVal){
+		inline void setFeatureValue(std::vector<int> fVal){
 			feature = fVal;
 		}
 

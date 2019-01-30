@@ -7,6 +7,7 @@
 #include "../forestTypes/rerf/fpRerFBase.h"
 #include "../forestTypes/rfClassification/fpForestClassificationBase.h"
 #include "../forestTypes/newForest/inPlaceBase.h"
+#include "../forestTypes/binnedTree/binnedBase.h"
 
 namespace fp{
 
@@ -23,6 +24,10 @@ namespace fp{
 						return std::unique_ptr<fpForestBase<T> >{new inPlaceBase<T,int>};
 					}else if(parameterName == "inPlaceRerF"){
 						return std::unique_ptr<fpForestBase<T> >{new inPlaceBase<T,std::vector<int> >};
+}else if(parameterName == "binnedBase"){
+						return std::unique_ptr<fpForestBase<T> >{new binnedBase<T,int>};
+}else if(parameterName == "binnedBaseRerF"){
+						return std::unique_ptr<fpForestBase<T> >{new binnedBase<T,std::vector<int> >};
 					}else{
 						throw std::runtime_error("Unimplemented forest type chosen." );
 						return NULL;

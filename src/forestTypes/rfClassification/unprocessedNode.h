@@ -154,6 +154,14 @@ namespace fp{
 						//logTime.stopGiniTimer();
 						setBestSplit(findSplit.giniSplit(baseUnprocessedNode<T>::featureHolder ,featuresToTry.back()));
 
+						removeTriedMtry();
+					}
+				}
+
+inline void removeTriedMtry(){
+					if(bestSplitInfo.perfectSplitFound()){
+						featuresToTry.clear();
+					}else{
 						featuresToTry.pop_back();
 					}
 				}

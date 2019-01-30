@@ -1,0 +1,45 @@
+In file included from src/baseFunctions/../forestTypes/rerf/rerfTree.h:3:0,
+                 from src/baseFunctions/../forestTypes/rerf/fpRerFBase.h:10,
+                 from src/baseFunctions/fpForestFactory.h:7,
+                 from src/packedForest.h:24,
+                 from src/fp.cpp:1:
+src/baseFunctions/../forestTypes/rerf/../../baseFunctions/fpBaseNode.h: In instantiation of ‘fpBaseNode<T, F>::fpBaseNode(T, int, F) [with T = double; F = std::vector<int, std::allocator<int> >]’:
+/usr/include/c++/7/ext/new_allocator.h:136:4:   required from ‘void __gnu_cxx::new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = fpBaseNode<double, std::vector<int, std::allocator<int> > >; _Args = {double, int, std::vector<int, std::allocator<int> >}; _Tp = fpBaseNode<double, std::vector<int, std::allocator<int> > >]’
+/usr/include/c++/7/bits/alloc_traits.h:475:4:   required from ‘static void std::allocator_traits<std::allocator<_CharT> >::construct(std::allocator_traits<std::allocator<_CharT> >::allocator_type&, _Up*, _Args&& ...) [with _Up = fpBaseNode<double, std::vector<int, std::allocator<int> > >; _Args = {double, int, std::vector<int, std::allocator<int> >}; _Tp = fpBaseNode<double, std::vector<int, std::allocator<int> > >; std::allocator_traits<std::allocator<_CharT> >::allocator_type = std::allocator<fpBaseNode<double, std::vector<int, std::allocator<int> > > >]’
+/usr/include/c++/7/bits/vector.tcc:100:30:   required from ‘void std::vector<_Tp, _Alloc>::emplace_back(_Args&& ...) [with _Args = {double, int, std::vector<int, std::allocator<int> >}; _Tp = fpBaseNode<double, std::vector<int, std::allocator<int> > >; _Alloc = std::allocator<fpBaseNode<double, std::vector<int, std::allocator<int> > > >]’
+src/baseFunctions/../forestTypes/binnedTree/binStruct.h:107:6:   required from ‘void fp::binStruct<T, Q>::copyProcessedNodeToBin() [with T = double; Q = std::vector<int, std::allocator<int> >]’
+src/baseFunctions/../forestTypes/binnedTree/binStruct.h:194:28:   required from ‘void fp::binStruct<T, Q>::processInternalNode() [with T = double; Q = std::vector<int, std::allocator<int> >]’
+src/baseFunctions/../forestTypes/binnedTree/binStruct.h:205:26:   required from ‘void fp::binStruct<T, Q>::processNode() [with T = double; Q = std::vector<int, std::allocator<int> >]’
+src/baseFunctions/../forestTypes/binnedTree/binStruct.h:216:19:   required from ‘void fp::binStruct<T, Q>::createBin(int) [with T = double; Q = std::vector<int, std::allocator<int> >]’
+src/baseFunctions/../forestTypes/binnedTree/binnedBase.h:73:6:   required from ‘void fp::binnedBase<T, Q>::growBins() [with T = double; Q = std::vector<int, std::allocator<int> >]’
+src/baseFunctions/../forestTypes/binnedTree/binnedBase.h:113:13:   required from ‘void fp::binnedBase<T, Q>::growForest() [with T = double; Q = std::vector<int, std::allocator<int> >]’
+src/fp.cpp:112:1:   required from here
+src/baseFunctions/../forestTypes/rerf/../../baseFunctions/fpBaseNode.h:14:7: warning: ‘fpBaseNode<double, std::vector<int, std::allocator<int> > >::depth’ will be initialized after [-Wreorder]
+   int depth;
+       ^~~~~
+src/baseFunctions/../forestTypes/rerf/../../baseFunctions/fpBaseNode.h:11:5: warning:   ‘std::vector<int, std::allocator<int> > fpBaseNode<double, std::vector<int, std::allocator<int> > >::feature’ [-Wreorder]
+   F feature;
+     ^~~~~~~
+src/baseFunctions/../forestTypes/rerf/../../baseFunctions/fpBaseNode.h:18:3: warning:   when initialized here [-Wreorder]
+   fpBaseNode(T cutValue, int depth, F feature): left(0), cutValue(cutValue), right(0), depth(depth), feature(feature){}
+   ^~~~~~~~~~
+src/baseFunctions/../forestTypes/rerf/../../baseFunctions/fpBaseNode.h: In instantiation of ‘fpBaseNode<T, F>::fpBaseNode(T, int, F) [with T = double; F = int]’:
+/usr/include/c++/7/ext/new_allocator.h:136:4:   required from ‘void __gnu_cxx::new_allocator<_Tp>::construct(_Up*, _Args&& ...) [with _Up = fpBaseNode<double, int>; _Args = {double, int, int}; _Tp = fpBaseNode<double, int>]’
+/usr/include/c++/7/bits/alloc_traits.h:475:4:   required from ‘static void std::allocator_traits<std::allocator<_CharT> >::construct(std::allocator_traits<std::allocator<_CharT> >::allocator_type&, _Up*, _Args&& ...) [with _Up = fpBaseNode<double, int>; _Args = {double, int, int}; _Tp = fpBaseNode<double, int>; std::allocator_traits<std::allocator<_CharT> >::allocator_type = std::allocator<fpBaseNode<double, int> >]’
+/usr/include/c++/7/bits/vector.tcc:100:30:   required from ‘void std::vector<_Tp, _Alloc>::emplace_back(_Args&& ...) [with _Args = {double, int, int}; _Tp = fpBaseNode<double, int>; _Alloc = std::allocator<fpBaseNode<double, int> >]’
+src/baseFunctions/../forestTypes/binnedTree/binStruct.h:107:6:   required from ‘void fp::binStruct<T, Q>::copyProcessedNodeToBin() [with T = double; Q = int]’
+src/baseFunctions/../forestTypes/binnedTree/binStruct.h:194:28:   required from ‘void fp::binStruct<T, Q>::processInternalNode() [with T = double; Q = int]’
+src/baseFunctions/../forestTypes/binnedTree/binStruct.h:205:26:   required from ‘void fp::binStruct<T, Q>::processNode() [with T = double; Q = int]’
+src/baseFunctions/../forestTypes/binnedTree/binStruct.h:216:19:   required from ‘void fp::binStruct<T, Q>::createBin(int) [with T = double; Q = int]’
+src/baseFunctions/../forestTypes/binnedTree/binnedBase.h:73:6:   required from ‘void fp::binnedBase<T, Q>::growBins() [with T = double; Q = int]’
+src/baseFunctions/../forestTypes/binnedTree/binnedBase.h:113:13:   required from ‘void fp::binnedBase<T, Q>::growForest() [with T = double; Q = int]’
+src/fp.cpp:112:1:   required from here
+src/baseFunctions/../forestTypes/rerf/../../baseFunctions/fpBaseNode.h:14:7: warning: ‘fpBaseNode<double, int>::depth’ will be initialized after [-Wreorder]
+   int depth;
+       ^~~~~
+src/baseFunctions/../forestTypes/rerf/../../baseFunctions/fpBaseNode.h:11:5: warning:   ‘int fpBaseNode<double, int>::feature’ [-Wreorder]
+   F feature;
+     ^~~~~~~
+src/baseFunctions/../forestTypes/rerf/../../baseFunctions/fpBaseNode.h:18:3: warning:   when initialized here [-Wreorder]
+   fpBaseNode(T cutValue, int depth, F feature): left(0), cutValue(cutValue), right(0), depth(depth), feature(feature){}
+   ^~~~~~~~~~

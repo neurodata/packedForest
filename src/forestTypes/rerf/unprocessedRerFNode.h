@@ -169,8 +169,8 @@ namespace fp{
 					//timeLogger logTime;
 					splitRerF<T> findSplit(baseUnprocessedNode<T>::labelHolder); //This is done twice
 					//TODO This needs to change to real mtry
-				//	std::vector<int> tempVec;
-				//	tempVec.push_back(0);
+					//	std::vector<int> tempVec;
+					//	tempVec.push_back(0);
 					while(!featuresToTry.empty()){
 						//not all featuresToTry will be populated.  This checks first.
 						if(!featuresToTry.back().empty()){
@@ -181,6 +181,15 @@ namespace fp{
 							setBestSplit(findSplit.giniSplit(baseUnprocessedNode<T>::featureHolder ,featuresToTry.back()));
 							//setBestSplit(findSplit.giniSplit(featureHolder ,tempVec));
 						}
+						removeTriedMtry();
+						//	featuresToTry.pop_back();
+					}
+				}
+
+				inline void removeTriedMtry(){
+					if(bestSplitInfo.perfectSplitFound()){
+						featuresToTry.clear();
+					}else{
 						featuresToTry.pop_back();
 					}
 				}
