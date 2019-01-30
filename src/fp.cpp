@@ -46,9 +46,11 @@ int main(int argc, char* argv[]) {
 				break;
 			case 7:
 				forest.setParameter("forestType", "binnedBase");
+				forest.setParameter("numTreeBins", 5);
 				break;
 			case 8:
 				forest.setParameter("forestType", "binnedBaseRerF");
+				forest.setParameter("numTreeBins", 5);
 				break;
 
 

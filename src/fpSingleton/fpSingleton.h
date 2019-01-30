@@ -20,7 +20,16 @@ namespace fp {
 			fpInfo fpForestInfo;
 			fpData data;
 
+
 		public:
+			inline int returnNumTreeBins(){
+				return fpForestInfo.returnNumTreeBins();
+			}
+
+			inline void setNumTreeBins(int numTB){
+				fpForestInfo.setNumTreeBins(numTB);
+			}
+
 			static fpSingleton& getSingleton(){
 				static std::unique_ptr<fpSingleton> infoSetting(new fpSingleton);
 				return *infoSetting;

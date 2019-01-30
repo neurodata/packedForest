@@ -12,7 +12,7 @@
 namespace fp{
 
 	template<typename T>
-		class labeledData
+		class alignas(16)labeledData
 		{
 			protected:
 				T dataElement;

@@ -10,11 +10,11 @@
 namespace fp{
 
 	template<typename T, typename Q>
-		class zipClassAndValue
+		class alignas(16) zipClassAndValue
 		{
 			protected:
-				T classOfObs;
 				Q featureVal;
+				T classOfObs;
 
 			public:
 

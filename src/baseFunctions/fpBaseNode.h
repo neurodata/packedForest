@@ -15,7 +15,7 @@ class alignas(32) fpBaseNode
 
 	public:
 		fpBaseNode():left(0), right(0), depth(0){}
-		fpBaseNode(T cutValue, int depth, F feature): left(0), cutValue(cutValue), right(0), depth(depth), feature(feature){}
+		fpBaseNode(T cutValue, int depth, F feature): left(0),feature(feature),cutValue(cutValue),right(0), depth(depth){}
 		fpBaseNode(int classNum):left(0), right(classNum), depth(-1){}
 
 		inline bool isInternalNode(){

@@ -15,7 +15,8 @@ DEPEXT      := d
 OBJEXT      := o
 
 #Flags, Libraries and Includes
-CFLAGS      := -fopenmp -pthread -Wall -O3 -DLIKWID_PERFMON -DNDEBUG -ffast-math
+CFLAGS      := -fopenmp -Wall -O3 -DNDEBUG -ffast-math
+#CFLAGS      := -fopenmp -pthread -Wall -O3 -DLIKWID_PERFMON -DNDEBUG -ffast-math
 #CFLAGS      := -fopenmp -Wall -O3 -g -ggdb -DLIKWID_PERFMON
 LIB         := -fopenmp -lm -L/usr/local/bin/../lib -llikwid -I/usr/local/bin/../include 
 INC         := -I$(INCDIR) -I/usr/local/bin/../include 

@@ -76,6 +76,8 @@ namespace fp {
 					fpSingleton::getSingleton().printAllParameters();
 				}
 
+				
+
 				inline void printForestType(){
 					fpSingleton::getSingleton().printForestType();
 				}

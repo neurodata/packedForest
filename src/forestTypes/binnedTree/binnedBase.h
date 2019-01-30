@@ -25,10 +25,23 @@ namespace fp {
 
 			std::vector<int> nodeIndices;
 			std::vector<int> binSizes;
+
+			inline void checkParameters(){
+				if(fpSingleton::getSingleton().returnNumTreeBins() > fpSingleton::getSingleton().returnNumTrees()){
+					fpSingleton::getSingleton().setNumTreeBins(fpSingleton::getSingleton().returnNumTrees());
+				}
+
+				if(fpSingleton::getSingleton().returnNumTreeBins() < 1){
+					fpSingleton::getSingleton().setNumTreeBins(4);
+				}
+			}
+
 		public:
 
 			~binnedBase(){}
-			binnedBase():numBins(4){
+			binnedBase(){
+checkParameters();
+numBins =  fpSingleton::getSingleton().returnNumTreeBins();
 				nodeIndices.resize(fpSingleton::getSingleton().returnNumObservations());
 				for(int i = 0; i < fpSingleton::getSingleton().returnNumObservations(); ++i){
 					nodeIndices[i] =i;
@@ -76,11 +89,6 @@ calcBinSizes();
 				}
 				nodeIndices.clear();
 				std::cout << "\n"<< std::flush;
-			}
-
-			inline void checkParameters(){
-				//TODO: check parameters to make sure they make sense for this forest type.
-				;
 			}
 
 			inline void binStats(){
