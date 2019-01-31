@@ -68,25 +68,28 @@ namespace fp {
 					fpSingleton::getSingleton().setParameter(parameterName, parameterValue);	
 				}
 
+
 				inline void setParameter(const std::string& parameterName, const int parameterValue){
 					fpSingleton::getSingleton().setParameter(parameterName, parameterValue);	
 				}
+
 
 				inline void printParameters(){
 					fpSingleton::getSingleton().printAllParameters();
 				}
 
-				
 
 				inline void printForestType(){
 					fpSingleton::getSingleton().printForestType();
 				}
+
 
 				inline void setNumberOfThreads(){
 					omp_set_dynamic(0);     // Explicitly disable dynamic teams
 					omp_set_num_threads(fpSingleton::getSingleton().returnNumThreads());
 					std::cout << "\n" << fpSingleton::getSingleton().returnNumThreads() << " thread was set\n";
 				}
+
 
 				inline void growForest(){
 					timeLogger x;
@@ -113,7 +116,11 @@ namespace fp {
 				float testAccuracy(){
 					float testError;
 					loadTestData();
+				//	timeLogger x;
+				//	x.startSortTimer();
 					testError = forest->testForest();
+				//	x.stopSortTimer();
+				//	x.printGrowTime();
 					deleteTestData();
 					return testError;
 				}

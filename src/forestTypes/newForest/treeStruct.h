@@ -41,12 +41,20 @@ namespace fp{
 					nodeQueue.emplace_back(0,0);
 					nodeQueue.back().setupRoot(indicesHolder, zipper);
 					nodeQueue.back().processNode();
-					makeLeafNodes();
 					setInitialNumberOfNodes();
-					copyProcessedNodeToTree();
-					createChildNodes();
+					makeLeafNodes();
+					if(nodeQueue.back().isLeafNode()){
+						makeRootALeaf();
+					}else{
+						copyProcessedNodeToTree();
+						createChildNodes();
+					}
 				}
 
+				inline void makeRootALeaf(){
+					tree.emplace_back(nodeQueue.back().returnNodeClass());
+					nodeQueue.pop_back();
+				}
 
 				inline bool shouldProcessNode(){
 					return !nodeQueue.back().isLeafNode();

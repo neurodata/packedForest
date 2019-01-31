@@ -40,8 +40,8 @@ namespace fp {
 
 			~binnedBase(){}
 			binnedBase(){
-checkParameters();
-numBins =  fpSingleton::getSingleton().returnNumTreeBins();
+				checkParameters();
+				numBins =  fpSingleton::getSingleton().returnNumTreeBins();
 				nodeIndices.resize(fpSingleton::getSingleton().returnNumObservations());
 				for(int i = 0; i < fpSingleton::getSingleton().returnNumObservations(); ++i){
 					nodeIndices[i] =i;
@@ -59,7 +59,7 @@ numBins =  fpSingleton::getSingleton().returnNumTreeBins();
 			}
 
 
-			
+
 
 
 			inline void calcBinSizes(){
@@ -76,10 +76,10 @@ numBins =  fpSingleton::getSingleton().returnNumTreeBins();
 
 				obsIndexAndClassVec indexHolder(fpSingleton::getSingleton().returnNumClasses());
 				std::vector<zipClassAndValue<int, T> > zipVec(fpSingleton::getSingleton().returnNumObservations());
-calcBinSizes();
+				calcBinSizes();
 				//#pragma omp parallel for
-					while(!binSizes.empty()){
-		//			setSharedVectors(indexHolder);
+				while(!binSizes.empty()){
+					//			setSharedVectors(indexHolder);
 					printProgress.displayProgress(numBins-binSizes.size()+1);
 					bins.emplace_back(indexHolder, zipVec, nodeIndices,binSizes.back());
 					//	LIKWID_MARKER_START("createTree");
@@ -122,28 +122,36 @@ calcBinSizes();
 				binStats();
 			}
 
+
 			inline int predictClass(int observationNumber){
-				std::vector<int> classTally(fpSingleton::getSingleton().returnNumClasses(),0);
-				for(int i = 0; i < numBins; ++i){
-					++classTally[bins[i].predictObservation(observationNumber)];
+				std::vector<int> predictions(fpSingleton::getSingleton().returnNumClasses(),0);
+
+#pragma omp parallel for num_threads(fpSingleton::getSingleton().returnNumThreads())
+				for(int k = 0; k < numBins; ++k){
+					bins[k].predictBinObservation(observationNumber, predictions);
 				}
+
 				int bestClass = 0;
 				for(int j = 1; j < fpSingleton::getSingleton().returnNumClasses(); ++j){
-					if(classTally[bestClass] < classTally[j]){
+					if(predictions[bestClass] < predictions[j]){
 						bestClass = j;
 					}
 				}
 				return bestClass;
 			}
 
+
 			inline int predictClass(std::vector<T>& observation){
-				std::vector<int> classTally(fpSingleton::getSingleton().returnNumClasses(),0);
-				for(int i = 0; i < numBins; ++i){
-					++classTally[bins[i].predictObservation(observation)];
+				std::vector<int> predictions(fpSingleton::getSingleton().returnNumClasses(),0);
+
+#pragma omp parallel for num_threads(fpSingleton::getSingleton().returnNumThreads())
+				for(int k = 0; k < numBins; ++k){
+					bins[k].predictBinObservation(observation, predictions);
 				}
+					
 				int bestClass = 0;
 				for(int j = 1; j < fpSingleton::getSingleton().returnNumClasses(); ++j){
-					if(classTally[bestClass] < classTally[j]){
+					if(predictions[bestClass] < predictions[j]){
 						bestClass = j;
 					}
 				}

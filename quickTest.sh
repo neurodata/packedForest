@@ -4,12 +4,12 @@ if [ -f error.log ]; then
 	rm error.log
 fi
 
-for i in `seq 1 2`;
+for i in `seq 1 8`;
 do
-	./bin/fp $i 6 1 > garbage.out
+	./bin/fp $i 1 1 > garbage.out
 	if [ $? -ne 0 ]
 	then
-		echo $i $q $j 2> error.log
+		echo $i >> error.log
 	fi
 	printf "\n"
 done
