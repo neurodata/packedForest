@@ -113,6 +113,21 @@ inline void setSharedClass(int classNum){
 		}
 
 
+inline int nextNode(const T* observation){
+			return	nextNodeHelper(observation, feature);
+		}
+inline int nextNodeHelper(const T* observation, std::vector<int>& featureVec){
+			T featureVal = 0;
+			for(auto featureNumber : featureVec){
+				featureVal += observation[featureNumber];
+			}
+			return (featureVal <= cutValue) ? left : right;
+		}
+inline int nextNodeHelper(const T* observation, int featureIndex){
+			return (observation[featureIndex] <= cutValue) ? left : right;
+		}
+
+
 		inline void addFeatureValue(int fVal){
 			feature.push_back(fVal);
 		}

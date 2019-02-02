@@ -12,13 +12,13 @@ namespace fp {
 		class inputMatrixData : public inputData<T,Q>
 	{
 		private:
-			const std::vector<std::vector<T> >& inputXData;
-			const std::vector<Q>& inputYData;
+			const T* inputXData;
+			const Q* inputYData;
 			int numClasses;
+			int numObs;
+			int numFeatures;
 		public:
-			inputMatrixData( std::vector<std::vector<T> >& Xmat, std::vector<Q>& Yvec):inputXData(Xmat),inputYData(Yvec),numClasses(-1){
-				//inputXData = Xmat;
-			//	inputYData = Yvec;
+			inputMatrixData( const T* Xmat, const Q* Yvec, int numObs, int numFeatures):inputXData(Xmat),inputYData(Yvec),numClasses(-1),numObs(numObs),numFeatures(numFeatures){
 				countAndCheckClasses();
 			}
 
@@ -31,19 +31,19 @@ namespace fp {
 			}
 
 			inline T returnFeatureValue(const int &featureNum, const int &observationNum){
-				return inputXData[featureNum][observationNum];
+				return inputXData[numObs*featureNum + observationNum];
 			}
 
 			inline void prefetchFeatureValue(const int &featureNum, const int &observationNum){
-				__builtin_prefetch(&inputXData[featureNum][observationNum], 0, 2);
+				__builtin_prefetch(&inputXData[numObs*featureNum + observationNum], 0, 2);
 			}
 
 			inline int returnNumFeatures(){
-				return inputXData.size();
+				return numFeatures;
 			}
 
 			inline int returnNumObservations(){
-				return inputYData.size();
+				return numObs;
 			}
 
 			inline int returnNumClasses(){
@@ -53,12 +53,12 @@ namespace fp {
 
 			inline void countAndCheckClasses(){
 				std::vector<short> classRoll;
-				for(auto i : inputYData){
-					if(i > numClasses){
-						numClasses=i+1;
+				for(int i = 0; i < numObs;++i){
+					if(inputYData[i] >= numClasses){
+						numClasses=inputYData[i]+1;
 						classRoll.resize(numClasses,0);
 					}
-					classRoll[i]=1;
+					classRoll[inputYData[i]]=1;
 				}
 
 				for(auto i : classRoll){

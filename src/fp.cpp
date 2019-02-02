@@ -52,9 +52,6 @@ int main(int argc, char* argv[]) {
 				forest.setParameter("forestType", "binnedBaseRerF");
 				forest.setParameter("numTreeBins", 5);
 				break;
-
-
-
 			default:
 				std::cout << "unknown alg selected" << std::endl;
 				return -1;

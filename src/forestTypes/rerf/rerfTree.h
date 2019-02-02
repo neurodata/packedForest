@@ -218,6 +218,14 @@ namespace fp{
 					}
 					return tree[currNode].returnClass();
 				}
+
+inline int predictObservation(const T* observation){
+					int currNode = 0;
+					while(tree[currNode].isInternalNode()){
+						currNode = tree[currNode].nextNode(observation);
+					}
+					return tree[currNode].returnClass();
+				}
 		};
 
 }//fp

@@ -55,7 +55,11 @@ namespace fp {
 				fpForestInfo.printForestType();
 			}
 
-			inline void loadData(){
+			inline void loadData(const double* Xmat, const int* Yvec, int numObs, int numFeatures){
+				data.fpLoadData(Xmat,Yvec,numObs,numFeatures, fpForestInfo);
+			}
+
+inline void loadData(){
 				data.fpLoadData(fpForestInfo);
 			}
 

@@ -159,6 +159,27 @@ namespace fp {
 			}
 
 
+inline int predictClass(const T* observation){
+	/*
+				std::vector<int> predictions(fpSingleton::getSingleton().returnNumClasses(),0);
+
+#pragma omp parallel for num_threads(fpSingleton::getSingleton().returnNumThreads())
+				for(int k = 0; k < numBins; ++k){
+					bins[k].predictBinObservation(observation, predictions);
+				}
+					
+				int bestClass = 0;
+				for(int j = 1; j < fpSingleton::getSingleton().returnNumClasses(); ++j){
+					if(predictions[bestClass] < predictions[j]){
+						bestClass = j;
+					}
+				}
+				return bestClass;
+				*/
+				return 0;
+			}
+
+
 			inline float testForest(){
 				int numTried = 0;
 				int numWrong = 0;

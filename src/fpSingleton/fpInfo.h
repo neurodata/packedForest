@@ -258,7 +258,7 @@ namespace fp {
 
 
 			void printForestType(){
-				std::cout << forestType;
+				std::cout << forestType << "\n";
 			}
 
 	}; // class fpInfo

@@ -2,7 +2,6 @@
 #define fpForest_h
 
 #include "../fpSingleton/fpSingleton.h"
-//#include "fpGrowingTreeHelpers/fpSplit.h"
 #include <string>
 #include <memory>
 
@@ -28,6 +27,11 @@ namespace fp {
 				void loadData(){
 					fpSingleton::getSingleton().loadData();
 				}
+
+void loadData(const T* Xmat, const int* Yvec, int numObs, int numFeatures){
+					fpSingleton::getSingleton().loadData(Xmat,Yvec,numObs,numFeatures);
+				}
+
 
 				void loadTestData(){
 					fpSingleton::getSingleton().loadTestData();
@@ -91,6 +95,22 @@ namespace fp {
 				}
 
 
+inline void growForest(const T* Xmat, const int* Yvec, int numObs, int numFeatures){
+					timeLogger x;
+					loadData(Xmat,Yvec,numObs,numFeatures);
+					x.startGrowTimer();
+					//	x.stopGrowTimer();
+					//	x.printGrowTime();
+					initializeForestType();
+					setDataDependentParameters();
+					//	setNumberOfThreads();
+					forest->growForest();
+					deleteData();
+					x.stopGrowTimer();
+					x.printGrowTime();
+				}
+
+
 				inline void growForest(){
 					timeLogger x;
 					loadData();
@@ -109,6 +129,10 @@ namespace fp {
 
 
 				inline int predict(std::vector<T>& observation){
+					return forest->predictClass(observation);
+				}
+
+inline int predict(const T* observation){
 					return forest->predictClass(observation);
 				}
 

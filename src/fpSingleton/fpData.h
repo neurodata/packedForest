@@ -44,25 +44,21 @@ namespace fp {
 			}
 
 			inline void printXValues(){
-inData->printXValues();
+				inData->printXValues();
 			}
 
 			void fpLoadData(fpInfo& settings){
 				if(settings.loadDataFromCSV()){
 					inData = new inputCSVData<DATA_TYPE_X, DATA_TYPE_Y>(settings.returnCSVFileName(), settings.returnColumnWithY());
-				}else if(false){
-					inData = new inputCSVData<DATA_TYPE_X, DATA_TYPE_Y>(settings.returnCSVFileName(), settings.returnColumnWithY());
-					//inData = new inputMatrixData<DATA_TYPE_X, DATA_TYPE_Y>();//TODO add parameters
-					//inData = new inputMatrixData<DATA_TYPE_X, DATA_TYPE_Y>(std::vector<std::vector<DATA_TYPE_X> > X, std::vector<DATA_TYPE_Y> Y);
-				}else{
+				}else {
 					throw std::runtime_error("Unable to read data." );
 				}
 				setDataRelatedParameters(settings);
 			}
 
 
-			void fpLoadData(std::vector<std::vector<DATA_TYPE_X> >& Xvals, std::vector<DATA_TYPE_Y>& Yvals,fpInfo& settings){
-					inData = new inputMatrixData<DATA_TYPE_X, DATA_TYPE_Y>(Xvals, Yvals);
+			void fpLoadData(const DATA_TYPE_X* x, const DATA_TYPE_Y* y,int numObs, int numFeatures,fpInfo& settings){
+				inData = new inputMatrixData<DATA_TYPE_X, DATA_TYPE_Y>(x,y,numObs,numFeatures);
 				setDataRelatedParameters(settings);
 			}
 
