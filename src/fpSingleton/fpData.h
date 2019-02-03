@@ -29,7 +29,7 @@ namespace fp {
 
 		public:
 
-			fpData(){
+			fpData():inData(NULL),inTestData(NULL){
 			}
 
 			~fpData(){

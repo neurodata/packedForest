@@ -2,10 +2,9 @@
 #define fpForestFactory_h
 
 #include <string>
-//#include <memory>
 #include "fpForestBase.h"
-#include "../forestTypes/rerf/fpRerFBase.h"
-#include "../forestTypes/rfClassification/fpForestClassificationBase.h"
+#include "../forestTypes/basicForests/rerf/fpRerFBase.h"
+#include "../forestTypes/basicForests/rfClassification/fpForestClassificationBase.h"
 #include "../forestTypes/newForest/inPlaceBase.h"
 #include "../forestTypes/binnedTree/binnedBase.h"
 

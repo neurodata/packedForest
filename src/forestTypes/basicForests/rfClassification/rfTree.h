@@ -1,24 +1,24 @@
-#ifndef rerfTree_h
-#define rerfTree_h
-#include "../../baseFunctions/fpBaseNode.h"
-#include "unprocessedRerFNode.h"
+#ifndef rfTree_h
+#define rfTree_h
+#include "../../../baseFunctions/fpBaseNode.h"
 #include <vector>
-#include <assert.h>
+#include <random>
+#include "unprocessedNode.h"
 
 namespace fp{
 
 	template <typename T>
-		class rerfTree
+		class rfTree
 		{
 			protected:
 				float OOBAccuracy;
 				float correctOOB;
 				float totalOOB;
-				std::vector< fpBaseNode<T, std::vector<int> > > tree;
-				std::vector< unprocessedRerFNode<T> > nodeQueue;
+				std::vector< fpBaseNode<T, int> > tree;
+				std::vector< unprocessedNode<T> > nodeQueue;
 
 			public:
-				rerfTree() : OOBAccuracy(-1.0),correctOOB(0),totalOOB(0){}
+				rfTree() : OOBAccuracy(-1.0),correctOOB(0),totalOOB(0){}
 
 				void loadFirstNode(){
 					nodeQueue.emplace_back(fpSingleton::getSingleton().returnNumObservations());
@@ -125,13 +125,15 @@ namespace fp{
 					createChildren();
 				}
 
+
 				inline bool isLeftNode(){
 					return true;
 				}
 
-				inline bool isRightNode(){
+inline bool isRightNode(){
 					return false;
 				}
+
 
 				inline void createChildren(){
 					nodeQueue.back().moveDataLeftOrRight();
@@ -160,7 +162,7 @@ namespace fp{
 
 
 				inline bool noGoodSplitFound(){
-					return nodeQueue.back().returnBestFeature().empty();
+					return nodeQueue.back().returnBestFeature() == -1;
 				}
 
 
@@ -184,42 +186,34 @@ namespace fp{
 				}
 
 
-				inline void processNodes(){
+				void processNodes(){
 					while(!nodeQueue.empty()){
 						processANode();
 					}
 				}
 
 
-				inline void growTree(){
+				void growTree(){
 					loadFirstNode();
 					processNodes();
 				}
 
 
+				//Note: this is 
 				inline int predictObservation(int observationNum){
 					int currNode = 0;
-					T featureVal = 0;
+					int featureNum = 0;
+					T featureVal;
 					while(tree[currNode].isInternalNode()){
-						featureVal = 0;
-						for(auto featureNumber : tree[currNode].returnFeatureNumber()){
-							featureVal += fpSingleton::getSingleton().returnTestFeatureVal(featureNumber,observationNum);
-						}
-						currNode = tree[currNode].fpBaseNode<T, std::vector<int> >::nextNode(featureVal);
+						featureNum = tree[currNode].returnFeatureNumber();
+						featureVal = fpSingleton::getSingleton().returnTestFeatureVal(featureNum,observationNum);
+						currNode = tree[currNode].fpBaseNode<T, int>::nextNode(featureVal);
 					}
 					return tree[currNode].returnClass();
 				}
 
 
 				inline int predictObservation(std::vector<T>& observation){
-					int currNode = 0;
-					while(tree[currNode].isInternalNode()){
-						currNode = tree[currNode].nextNode(observation);
-					}
-					return tree[currNode].returnClass();
-				}
-
-inline int predictObservation(const T* observation){
 					int currNode = 0;
 					while(tree[currNode].isInternalNode()){
 						currNode = tree[currNode].nextNode(observation);

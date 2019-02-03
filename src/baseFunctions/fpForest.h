@@ -28,7 +28,7 @@ namespace fp {
 					fpSingleton::getSingleton().loadData();
 				}
 
-void loadData(const T* Xmat, const int* Yvec, int numObs, int numFeatures){
+				void loadData(const T* Xmat, const int* Yvec, int numObs, int numFeatures){
 					fpSingleton::getSingleton().loadData(Xmat,Yvec,numObs,numFeatures);
 				}
 
@@ -95,36 +95,25 @@ void loadData(const T* Xmat, const int* Yvec, int numObs, int numFeatures){
 				}
 
 
-inline void growForest(const T* Xmat, const int* Yvec, int numObs, int numFeatures){
-					timeLogger x;
+				inline void growForest(const T* Xmat, const int* Yvec, int numObs, int numFeatures){
+					// timeLogger x;
+					// x.startGrowTimer();
+					// x.stopGrowTimer();
+					// x.printGrowTime();
 					loadData(Xmat,Yvec,numObs,numFeatures);
-					x.startGrowTimer();
-					//	x.stopGrowTimer();
-					//	x.printGrowTime();
 					initializeForestType();
 					setDataDependentParameters();
-					//	setNumberOfThreads();
 					forest->growForest();
 					deleteData();
-					x.stopGrowTimer();
-					x.printGrowTime();
 				}
 
 
 				inline void growForest(){
-					timeLogger x;
 					loadData();
-					x.startGrowTimer();
-					//	x.stopGrowTimer();
-					//	x.printGrowTime();
 					initializeForestType();
 					setDataDependentParameters();
-					//	setNumberOfThreads();
 					forest->growForest();
 					deleteData();
-					x.stopGrowTimer();
-					x.printGrowTime();
-
 				}
 
 
@@ -132,19 +121,19 @@ inline void growForest(const T* Xmat, const int* Yvec, int numObs, int numFeatur
 					return forest->predictClass(observation);
 				}
 
-inline int predict(const T* observation){
+				inline int predict(const T* observation){
 					return forest->predictClass(observation);
 				}
 
 
 				float testAccuracy(){
+					//	timeLogger x;
+					//	x.startSortTimer();
+					//	x.stopSortTimer();
+					//	x.printGrowTime();
 					float testError;
 					loadTestData();
-				//	timeLogger x;
-				//	x.startSortTimer();
 					testError = forest->testForest();
-				//	x.stopSortTimer();
-				//	x.printGrowTime();
 					deleteTestData();
 					return testError;
 				}

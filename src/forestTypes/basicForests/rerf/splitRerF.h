@@ -1,20 +1,21 @@
-#ifndef baseSplit_h
-#define baseSplit_h
+#ifndef splitRerF_h
+#define splitRerF_h
 
 #include "splitRerFInfo.h"
-#include "labeledData.h"
-#include "classTotals.h"
+#include "../labeledData.h"
+#include "../classTotals.h"
+#include "../../../baseFunctions/pdqsort.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
 #include <limits>
-#include <utility>
 #include <assert.h>
+#include <utility>
 
 namespace fp{
 
 	template<typename T>
-		class baseSplit{
+		class splitRerF{
 			protected:
 				double overallImpurity;
 				classTotals leftClasses;
@@ -27,7 +28,7 @@ namespace fp{
 					combinedDataLabels.resize(labels.size());
 				}
 
-				inline void zipDataLabels(std::vector<T>& featureVals){
+				inline void zipDataLabels(std::vector<T> featureVals){
 					for(int i=0; i<(int)labels.size(); ++i){
 						combinedDataLabels[i].setPair(featureVals[i],labels[i]);
 					}
@@ -46,20 +47,16 @@ namespace fp{
 					leftClasses.incrementClass(combinedDataLabels.back().returnDataLabel());
 					rightClasses.decrementClass(combinedDataLabels.back().returnDataLabel());
 
-					assert(rightClasses.returnNumItems == 0);
-
+					assert(rightClasses.returnNumItems() == 0);
 					std::swap(rightClasses, leftClasses);
-					//rightClasses = leftClasses;
-					//leftClasses.resetClassTotals();
-
-					assert(leftClasses.returnNumItems == 0);
+					assert(leftClasses.returnNumItems() == 0);
 				}
 
 			public:
 				splitRerF(const std::vector<int>& labelVector): labels(labelVector){
 					rightClasses.findNumClasses(labels);
 					leftClasses.setClassVecSize(rightClasses.returnClassVecSize());
-					this->setCombinedVecSize();
+					setCombinedVecSize();
 					overallImpurity = rightClasses.calcAndReturnImpurity();
 				}
 
@@ -68,20 +65,20 @@ namespace fp{
 				}
 
 
-				splitRerFInfo<T> giniSplit(const std::vector<T>& featureVals, const std::vector<int>& featureNums){
+				inline splitRerFInfo<T> giniSplit(const std::vector<T>& featureVals, const std::vector<int>& featureNums){
 					double tempImpurity;
-					int numLabels = labels.size();
+					int numLabels = (int)labels.size();
 					//	timeLogger logTime;
 
 					// initialize return value
 					splitRerFInfo<T> currSplitInfo;
-					currSplitInfo.addFeatureNums(featureNums);
 
 					// zip data and labels
 					zipDataLabels(featureVals);
 
 					// sort feature Vals
-					std::sort(combinedDataLabels.begin(), combinedDataLabels.end());
+					pdqsort_branchless(combinedDataLabels.begin(), combinedDataLabels.end());
+					//std::sort(combinedDataLabels.begin(), combinedDataLabels.end());
 
 					// find split
 					for(int i=0; i<numLabels-1; ++i){
@@ -96,15 +93,13 @@ namespace fp{
 								currSplitInfo.setSplitValue(midVal(i));
 								currSplitInfo.setLeftImpurity(leftClasses.returnImpurity());
 								currSplitInfo.setRightImpurity(rightClasses.returnImpurity());
+								currSplitInfo.addFeatureNums(featureNums);
 							}
 						}
 					}
 
-					if(currSplitInfo.returnImpurity() == overallImpurity){
-						std::cout << "it happened\n";
-						exit(1); //should never happen.  Why?
-						currSplitInfo.setImpurity(-1);
-					}
+					assert(currSplitInfo.returnImpurity() != overallImpurity);
+
 					//logTime.startFindSplitTimer();
 					setupForNextRun();
 					//logTime.stopFindSplitTimer();
@@ -114,4 +109,4 @@ namespace fp{
 		};
 
 }//namespace fp
-#endif //baseSplit_h
+#endif //splitRerF_h

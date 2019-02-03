@@ -1,7 +1,7 @@
 #ifndef baseSplitInfo_h
 #define baseSplitInfo_h
 
-#include "../baseFunctions/timeLogger.h"
+#include "../../baseFunctions/timeLogger.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>

@@ -1,7 +1,7 @@
 #ifndef fpRerF_h
 #define fpRerf_h
 
-#include "../../baseFunctions/fpForestBase.h"
+#include "../../../baseFunctions/fpForestBase.h"
 #include <vector>
 #include <stdio.h>
 #include <ctime>
@@ -38,7 +38,7 @@ namespace fp {
 					printProgress.displayProgress(i);
 					trees[i].growTree();
 				}
-				std::cout << "\n"<< std::flush;
+				std::cout << " done growing forest.\n"<< std::flush;
 			}
 
 			inline void checkParameters(){
@@ -61,7 +61,7 @@ namespace fp {
 				}
 
 				std::cout << "max depth: " << maxDepth << "\n";
-				std::cout << "avg depth: " << float(totalLeafDepth)/float(totalLeafNodes) << "\n";
+				std::cout << "avg leaf depth: " << float(totalLeafDepth)/float(totalLeafNodes) << "\n";
 				std::cout << "num leaf nodes: " << totalLeafNodes << "\n";
 			}
 
@@ -70,7 +70,6 @@ namespace fp {
 			}
 
 			void growForest(){
-				//	checkParameters();
 				changeForestSize();
 				growTrees();
 				treeStats();
