@@ -16,11 +16,12 @@ SRCEXT      := cpp
 DEPEXT      := d
 OBJEXT      := o
 
-#Flags, Libraries and Includes
+#Flags, Libraries and Includes w/o openmp
 #CFLAGS      := -Wall -O3 -DNDEBUG -ffast-math 
-CFLAGS      := -fopenmp -Wall -O3 -DNDEBUG -ffast-math
+#CFLAGS      := -fopenmp -Wall -O3 -DNDEBUG -ffast-math
+CFLAGS      := -Wall -O3 -DNDEBUG -ffast-math
 #LIB         := -fopenmp -lm -lnuma
-LIB         :=  -fopenmp -lm -O3 
+LIB         :=  -lm -O3
 INC         := -I$(INCDIR) -I/usr/local/include 
 INCDEP      := -I$(INCDIR)
 

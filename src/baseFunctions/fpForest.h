@@ -7,7 +7,9 @@
 #include <memory>
 
 #if defined(ENABLE_OPENMP)
+#ifdef _OPENMP
 #include <omp.h>
+#endif
 #else
 void	omp_set_dynamic(int x){
 	std::cout << "I should not get called\n";

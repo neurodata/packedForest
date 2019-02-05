@@ -7,7 +7,9 @@
 #include <ctime>
 #include <chrono>
 #include <cstdlib>
+#ifdef _OPENMP
 #include <omp.h>
+#endif
 #include "rfTree.h"
 
 namespace fp {
@@ -34,7 +36,9 @@ namespace fp {
 
 			inline void growTrees(){
 
+#ifdef _OPENMP
 #pragma omp parallel for num_threads(fpSingleton::getSingleton().returnNumThreads())
+#endif
 				for(unsigned int i = 0; i < trees.size(); ++i){
 					printProgress.displayProgress(i);
 					trees[i].growTree();

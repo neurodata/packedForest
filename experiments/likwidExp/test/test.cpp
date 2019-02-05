@@ -32,7 +32,10 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#ifdef _OPENMP
 #include <omp.h>
+#endif
+
 #include <likwid.h>
 
 #define SLEEPTIME 2
@@ -46,7 +49,9 @@ int main(int argc, char* argv[])
 	int count;
 	// Init Marker API in serial region once in the beginning
 	LIKWID_MARKER_INIT;
+#ifdef _OPENMP
 #pragma omp parallel
+#endif
 	{
 		// Each thread must add itself to the Marker API, therefore must be
 		// in parallel region
@@ -60,7 +65,9 @@ int main(int argc, char* argv[])
 	// has no function to get the number of configured groups.
 	for (g=0;g < perfmon_getNumberOfGroups(); g++)
 	{
+#ifdef _OPENMP
 #pragma omp parallel
+#endif
 		{
 			printf("Thread %d sleeps now for %d seconds\n", omp_get_thread_num(), SLEEPTIME);
 			// Start measurements inside a parallel region
