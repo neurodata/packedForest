@@ -96,10 +96,6 @@ namespace fp {
 
 
 				inline void growForest(const T* Xmat, const int* Yvec, int numObs, int numFeatures){
-					// timeLogger x;
-					// x.startGrowTimer();
-					// x.stopGrowTimer();
-					// x.printGrowTime();
 					loadData(Xmat,Yvec,numObs,numFeatures);
 					initializeForestType();
 					setDataDependentParameters();
@@ -127,10 +123,6 @@ namespace fp {
 
 
 				float testAccuracy(){
-					//	timeLogger x;
-					//	x.startSortTimer();
-					//	x.stopSortTimer();
-					//	x.printGrowTime();
 					float testError;
 					loadTestData();
 					testError = forest->testForest();
