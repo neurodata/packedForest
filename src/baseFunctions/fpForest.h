@@ -62,6 +62,9 @@ namespace fp {
 			public:
 
 				fpForest(){}
+				~fpForest(){
+				fpSingleton::getSingleton().resetSingleton();
+				}
 
 				inline void setParameter(const std::string& parameterName, const std::string& parameterValue){
 					fpSingleton::getSingleton().setParameter(parameterName, parameterValue);	

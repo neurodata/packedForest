@@ -46,11 +46,13 @@ int main(int argc, char* argv[]) {
 				break;
 			case 7:
 				forest.setParameter("forestType", "binnedBase");
-				forest.setParameter("numTreeBins", 5);
+				//forest.setParameter("numTreeBins", 1);
+				forest.setParameter("numTreeBins", numCores);
 				break;
 			case 8:
 				forest.setParameter("forestType", "binnedBaseRerF");
-				forest.setParameter("numTreeBins", 5);
+				//forest.setParameter("numTreeBins", 1);
+				forest.setParameter("numTreeBins", numCores);
 				break;
 			default:
 				std::cout << "unknown alg selected" << std::endl;
@@ -91,7 +93,7 @@ int main(int argc, char* argv[]) {
 		}
 
 
-		forest.setParameter("numTreesInForest", 10);
+		forest.setParameter("numTreesInForest", 100);
 		forest.setParameter("minParent", 1);
 		forest.setParameter("numCores", numCores);
 

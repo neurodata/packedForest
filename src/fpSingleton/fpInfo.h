@@ -47,6 +47,31 @@ namespace fp {
 
 
 		public:
+
+			inline void resetInfo(){
+				numTreesInForest=100;
+				minParent=1;
+				numClasses=-1;
+				numObservations=-1;
+				numFeatures=-1;
+				mtry=-1;
+				columnWithY=-1;
+				numberOfNodes=0;
+				maxDepth=0;
+				sumLeafNodeDepths=0;
+				fractionOfFeaturesToTest=-1.0; 
+				binSize=0;
+				numCores=1;
+				double_epsilon=0.0000001;
+				float_epsilon=0.0000001; 
+				seed=-1;
+				numTreeBins=-1;
+				forestType.clear();
+				CSVFileName.clear();
+				initRandom();
+			}
+
+
 			inline int returnNumTreeBins(){
 				return numTreeBins;
 			}

@@ -71,6 +71,10 @@ inline void loadData(){
 				data.fpDeleteData();
 			}
 
+			inline void resetSingleton(){
+				fpForestInfo.resetInfo();
+			}
+
 			inline void deleteTestData(){
 				data.fpDeleteTestData();
 			}
