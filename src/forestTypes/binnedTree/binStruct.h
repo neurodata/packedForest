@@ -1,6 +1,7 @@
 #ifndef binStruct_h
 #define binStruct_h
 #include "../../baseFunctions/fpBaseNode.h"
+#include "../../baseFunctions/MWC.h"
 #include "obsIndexAndClassVec.h"
 #include "zipClassAndValue.h"
 #include "processingNode.h"
@@ -16,7 +17,7 @@ namespace fp{
 				float correctOOB;
 				float totalOOB;
 				std::vector< fpBaseNode<T,Q> > bin;
-				std::vector<processingNode<T,Q> > nodeQueue;
+				std::vector<processingNodeBin<T,Q> > nodeQueue;
 
 				int numberOfNodes;
 
@@ -27,6 +28,9 @@ namespace fp{
 				std::vector<zipClassAndValue<int, T> > zipper;
 
 				std::vector<int> nodeIndices;
+
+
+				randomNumberRerFMWC randNum;
 
 				//obsIndexAndClassVec indexHolder(numClasses);
 				//std::vector<zipClassAndValue<int, float> > zipVec(testSize);
@@ -45,7 +49,7 @@ namespace fp{
 
 				inline void loadFirstNode(){
 					//inline void loadFirstNode(obsIndexAndClassVec& indicesHolder, std::vector<zipClassAndValue<int, T> >& zipper){
-					nodeQueue.emplace_back(0,0);
+					nodeQueue.emplace_back(0,0,randNum);
 					nodeQueue.back().setupRoot(indicesHolder, zipper);
 					nodeQueue.back().processNode();
 					if(nodeQueue.back().isLeafNode()){
@@ -69,7 +73,7 @@ namespace fp{
 					int tempMoveObs;
 
 					for(int n = 0; n < fpSingleton::getSingleton().returnNumObservations(); n++){
-						randomObsID = fpSingleton::getSingleton().genRandom(fpSingleton::getSingleton().returnNumObservations());
+						randomObsID = randNum.gen(fpSingleton::getSingleton().returnNumObservations());
 
 						indicesInNode.insertIndex(nodeIndices[randomObsID], fpSingleton::getSingleton().returnLabel(nodeIndices[randomObsID]));
 
@@ -157,15 +161,15 @@ namespace fp{
 					if(nodeQueue.back().isLeftChildLarger()){
 						nodeQueue.pop_back();
 						//TODO: don't emplace_back if should be leaf node.
-						nodeQueue.emplace_back(1,parentNodesPosition());
+						nodeQueue.emplace_back(1,parentNodesPosition(), randNum);
 						nodeQueue.back().setupNode(nodeIts, zipIts, rightNode());
-						nodeQueue.emplace_back(1,parentNodesPosition());
+						nodeQueue.emplace_back(1,parentNodesPosition(),randNum);
 						nodeQueue.back().setupNode(nodeIts, zipIts, leftNode());
 					}else{
 						nodeQueue.pop_back();
-						nodeQueue.emplace_back(1,parentNodesPosition());
+						nodeQueue.emplace_back(1,parentNodesPosition(),randNum);
 						nodeQueue.back().setupNode(nodeIts, zipIts, leftNode());
-						nodeQueue.emplace_back(1,parentNodesPosition());
+						nodeQueue.emplace_back(1,parentNodesPosition(),randNum);
 						nodeQueue.back().setupNode(nodeIts, zipIts, rightNode());
 					}
 				}
@@ -177,15 +181,15 @@ namespace fp{
 					if(nodeQueue.back().isLeftChildLarger()){
 						nodeQueue.pop_back();
 						//TODO: don't emplace_back if should be leaf node.
-						nodeQueue.emplace_back(1,returnRootLocation());
+						nodeQueue.emplace_back(1,returnRootLocation(),randNum);
 						nodeQueue.back().setupNode(nodeIts, zipIts, rightNode());
-						nodeQueue.emplace_back(1,returnRootLocation());
+						nodeQueue.emplace_back(1,returnRootLocation(),randNum);
 						nodeQueue.back().setupNode(nodeIts, zipIts, leftNode());
 					}else{
 						nodeQueue.pop_back();
-						nodeQueue.emplace_back(1,returnRootLocation());
+						nodeQueue.emplace_back(1,returnRootLocation(),randNum);
 						nodeQueue.back().setupNode(nodeIts, zipIts, leftNode());
-						nodeQueue.emplace_back(1,returnRootLocation());
+						nodeQueue.emplace_back(1,returnRootLocation(),randNum);
 						nodeQueue.back().setupNode(nodeIts, zipIts, rightNode());
 					}
 				}
@@ -220,8 +224,9 @@ namespace fp{
 				}
 
 
-				inline void createBin(int numTrees){
+				inline void createBin(int numTrees, int randSeed){
 					numOfTreesInBin = numTrees;
+					randNum.initialize(randSeed);
 					initializeStructures();
 					for(; currTree < numOfTreesInBin; ++currTree){
 						setSharedVectors(indicesHolder);
@@ -245,7 +250,7 @@ namespace fp{
 
 
 				inline void removeStructures(){
-					std::vector<processingNode<T,Q> >().swap( nodeQueue );
+					std::vector<processingNodeBin<T,Q> >().swap( nodeQueue );
 					//indicesHolder.removeObsIndexAndClassVec();
 					std::vector<zipClassAndValue<int, T> >().swap( zipper );
 					std::vector<int>().swap( nodeIndices);
@@ -293,7 +298,7 @@ namespace fp{
 					predictBinObservation(observationNum,preds, identity<Q>());
 				}
 
-inline void predictBinObservation(std::vector<T>& observation, std::vector<int>& preds){
+				inline void predictBinObservation(std::vector<T>& observation, std::vector<int>& preds){
 					predictBinObservation(observation,preds,identity<Q>());
 				}
 				////////////////////////////////
@@ -374,7 +379,7 @@ inline void predictBinObservation(std::vector<T>& observation, std::vector<int>&
 
 				//inline int predictObservation(std::vector<T>& observation, identity<int>){
 				inline void predictBinObservation(std::vector<T>& observation, std::vector<int>& preds,identity<int> ){
-std::vector<int> currNode(numOfTreesInBin);
+					std::vector<int> currNode(numOfTreesInBin);
 					int numberNotInLeaf;
 					int featureNum;
 					int q;
@@ -406,7 +411,7 @@ std::vector<int> currNode(numOfTreesInBin);
 				}
 
 
-inline void predictBinObservation(std::vector<T>& observation, std::vector<int>& preds, identity<std::vector<int> >){
+				inline void predictBinObservation(std::vector<T>& observation, std::vector<int>& preds, identity<std::vector<int> >){
 					std::vector<int> currNode(numOfTreesInBin);
 					int numberNotInLeaf;
 					T featureVal;

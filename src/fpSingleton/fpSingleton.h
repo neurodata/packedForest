@@ -59,7 +59,7 @@ namespace fp {
 				data.fpLoadData(Xmat,Yvec,numObs,numFeatures, fpForestInfo);
 			}
 
-inline void loadData(){
+			inline void loadData(){
 				data.fpLoadData(fpForestInfo);
 			}
 

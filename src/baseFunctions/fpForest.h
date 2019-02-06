@@ -104,8 +104,8 @@ namespace fp {
 					// x.stopGrowTimer();
 					// x.printGrowTime();
 					loadData(Xmat,Yvec,numObs,numFeatures);
-					initializeForestType();
 					setDataDependentParameters();
+					initializeForestType();
 					forest->growForest();
 					deleteData();
 				}
@@ -113,8 +113,8 @@ namespace fp {
 
 				inline void growForest(){
 					loadData();
-					initializeForestType();
 					setDataDependentParameters();
+					initializeForestType();
 					forest->growForest();
 					deleteData();
 				}

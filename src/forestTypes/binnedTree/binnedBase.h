@@ -25,6 +25,8 @@ namespace fp {
 			int numBins;
 
 			std::vector<int> binSizes;
+			std::vector<int> binSeeds;
+
 
 			inline void checkParameters(){
 				if(fpSingleton::getSingleton().returnNumTreeBins() > fpSingleton::getSingleton().returnNumTrees()){
@@ -42,9 +44,16 @@ namespace fp {
 			binnedBase(){
 				checkParameters();
 				numBins =  fpSingleton::getSingleton().returnNumTreeBins();
-
+generateSeedsForBins();
 			}
 
+			inline void generateSeedsForBins(){
+binSeeds.resize(numBins);
+for(int i = 0; i < numBins; ++i){
+	binSeeds[i] = fpSingleton::getSingleton().genRandom(std::numeric_limits<int>::max());
+	std::cout << binSeeds[i] << " ";
+}
+			}
 
 			inline void printForestType(){
 				std::cout << "This is a binned forest.\n";
@@ -53,10 +62,6 @@ namespace fp {
 			inline void changeForestSize(){
 				bins.reserve(numBins);
 			}
-
-
-
-
 
 			inline void calcBinSizes(){
 				int minBinSize = fpSingleton::getSingleton().returnNumTrees()/numBins;
@@ -76,7 +81,7 @@ namespace fp {
 				bins.resize(numBins);
 				#pragma omp parallel for num_threads(fpSingleton::getSingleton().returnNumThreads())
 				for(int j = 0; j < numBins; ++j){
-					bins[j].createBin(binSizes[j]);
+					bins[j].createBin(binSizes[j], binSeeds[j]);
 				}
 				std::cout << "\n"<< std::flush;
 			}

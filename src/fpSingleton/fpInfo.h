@@ -68,7 +68,7 @@ namespace fp {
 				numTreeBins=-1;
 				forestType.clear();
 				CSVFileName.clear();
-				initRandom();
+				//initRandom();
 			}
 
 
@@ -171,10 +171,11 @@ namespace fp {
 			//Random Number Generator
 			///////////////////////////////////////
 			inline void initRandom(){
-				std::random_device rd;
 				if(seed == -1){
+				std::random_device rd;
 					seed = rd();
 				}
+				std::cout << "seed is " << seed << "\n";
 				randNum.initialize(seed);
 			}
 
