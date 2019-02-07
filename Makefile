@@ -19,22 +19,31 @@ OBJEXT      := o
 
 #Flags, Libraries and Includes w/o openmp
 # use these flags by default
-CFLAGS := -Xpreprocessor -fopenmp -Wall -O3 -DNDEBUG -ffast-math
-LIB := -lomp -lm -O3
 
 # find the OS type
 UNAME_S := $(shell uname -s)
+#GCC_VERSION = $(shell gcc --version | grep ^gcc | sed 's/^.* //g')
+#message(GCC_VERSION)
 # if the OS type is MacOS
 ifeq ($(UNAME_S),Darwin)
+# if you have g++-8, use that and OpenMP
+ifneq (,$(shell g++-8 --version))
+	CC := g++-8 -std=c++11
+	CFLAGS := -Xpreprocessor -fopenmp -Wall -O3 -DNDEBUG -ffast-math
+	LIB := -lomp -lm -O3
+else ifneq (,$(shell ls /usr/local/lib/ | grep libomp))
 	# if you have the OpenMP libraries, compile with them
-	ifeq (,$(wildcard /usr/local/lib/libomp.a))
-		CFLAGS := -Wall -O3 -DNDEBUG -ffast-math
-		LIB := -lm -O3
+	CFLAGS := -Xpreprocessor -fopenmp -Wall -O3 -DNDEBUG -ffast-math
+	LIB := -lomp -lm -O3
 	# otherwise don't
-	else
-		CFLAGS := -Xpreprocessor -fopenmp -Wall -O3 -DNDEBUG -ffast-math
-		LIB := -lomp -lm -O3
-	endif
+else
+	CFLAGS := -Wall -O3 -DNDEBUG -ffast-math
+	LIB := -lm -O3
+endif
+else
+	CFLAGS := -Xpreprocessor -fopenmp -Wall -O3 -DNDEBUG -ffast-math
+	LIB := -lomp -lm -O3
+
 endif
 
 
