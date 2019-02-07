@@ -175,7 +175,6 @@ namespace fp {
 				std::random_device rd;
 					seed = rd();
 				}
-				std::cout << "seed is " << seed << "\n";
 				randNum.initialize(seed);
 			}
 
