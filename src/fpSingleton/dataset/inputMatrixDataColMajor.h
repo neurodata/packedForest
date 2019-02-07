@@ -1,5 +1,5 @@
-#ifndef inputMatrixData_h
-#define inputMatrixData_h
+#ifndef inputMatrixDataColMajor_h
+#define inputMatrixDataColMajor_h
 #include <vector>
 #include <iostream>
 #include "inputData.h"
@@ -9,7 +9,7 @@
 namespace fp {
 
 	template <typename T, typename Q>
-		class inputMatrixData : public inputData<T,Q>
+		class inputMatrixDataColMajor : public inputData<T,Q>
 	{
 		private:
 			const T* inputXData;
@@ -18,11 +18,11 @@ namespace fp {
 			int numObs;
 			int numFeatures;
 		public:
-			inputMatrixData( const T* Xmat, const Q* Yvec, int numObs, int numFeatures):inputXData(Xmat),inputYData(Yvec),numClasses(-1),numObs(numObs),numFeatures(numFeatures){
+			inputMatrixDataColMajor( const T* Xmat, const Q* Yvec, int numObs, int numFeatures):inputXData(Xmat),inputYData(Yvec),numClasses(-1),numObs(numObs),numFeatures(numFeatures){
 				countAndCheckClasses();
 			}
 
-			~inputMatrixData(){
+			~inputMatrixDataColMajor(){
 				//TODO destroy X and Y
 			}
 
@@ -31,11 +31,11 @@ namespace fp {
 			}
 
 			inline T returnFeatureValue(const int &featureNum, const int &observationNum){
-				return inputXData[observationNum*numFeatures + featureNum];
+				return inputXData[numObs*featureNum + observationNum];
 			}
 
 			inline void prefetchFeatureValue(const int &featureNum, const int &observationNum){
-				__builtin_prefetch(&inputXData[observationNum*numFeatures + featureNum], 0, 2);
+				__builtin_prefetch(&inputXData[numObs*featureNum + observationNum], 0, 2);
 			}
 
 			inline int returnNumFeatures(){
@@ -92,4 +92,4 @@ namespace fp {
 	};
 
 } //namespace fp
-#endif //inputMatrixData_h
+#endif //inputMatrixDataColMajor_h

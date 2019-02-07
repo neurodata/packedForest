@@ -44,6 +44,7 @@ namespace fp {
 			randomNumberRerFMWC randNum;
 
 			int numTreeBins;
+			bool useRowMajor;
 
 
 		public:
@@ -156,6 +157,9 @@ namespace fp {
 			inline bool useDefaultMTRY(){
 				return fractionOfFeaturesToTest < 0;
 			}
+			inline bool returnUseRowMajor(){
+return useRowMajor;
+			}
 
 			inline void setMTRY(){
 				if(mtry == -1){
@@ -196,7 +200,7 @@ namespace fp {
 			fpInfo(): numTreesInForest(100),
 			minParent(1),	numClasses(-1), numObservations(-1), numFeatures(-1),
 			mtry(-1), columnWithY(-1), 
-			numberOfNodes(0), maxDepth(0),sumLeafNodeDepths(0), fractionOfFeaturesToTest(-1.0), binSize(0), numCores(1), double_epsilon(0.0000001), float_epsilon(0.0000001),seed(-1),numTreeBins(-1){}
+			numberOfNodes(0), maxDepth(0),sumLeafNodeDepths(0), fractionOfFeaturesToTest(-1.0), binSize(0), numCores(1), double_epsilon(0.0000001), float_epsilon(0.0000001),seed(-1),numTreeBins(-1),useRowMajor(true){}
 
 
 
@@ -232,6 +236,8 @@ namespace fp {
 					seed = (int)parameterValue;
 				}else if(parameterName == "numTreeBins"){
 					numTreeBins = (int)parameterValue;
+}else if(parameterName == "useRowMajor"){
+					useRowMajor = (bool)parameterValue;
 				}else {
 					throw std::runtime_error("Unknown parameter type.(double)");
 				}
@@ -259,6 +265,8 @@ namespace fp {
 					seed = parameterValue;
 				}else if(parameterName == "numTreeBins"){
 					numTreeBins = parameterValue;
+}else if(parameterName == "useRowMajor"){
+					useRowMajor = (bool)parameterValue;
 				}else {
 					throw std::runtime_error("Unknown parameter type.(int)");
 				}
