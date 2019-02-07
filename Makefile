@@ -19,9 +19,9 @@ OBJEXT      := o
 #Flags, Libraries and Includes w/o openmp
 #CFLAGS      := -Wall -O3 -DNDEBUG -ffast-math 
 #CFLAGS      := -fopenmp -Wall -O3 -DNDEBUG -ffast-math
-CFLAGS      := -Wall -O3 -DNDEBUG -ffast-math
+CFLAGS      := -Xpreprocessor -fopenmp -Wall -O3 -DNDEBUG -ffast-math
 #LIB         := -fopenmp -lm -lnuma
-LIB         :=  -lm -O3
+LIB         :=  -lomp -lm -O3
 INC         := -I$(INCDIR) -I/usr/local/include 
 INCDEP      := -I$(INCDIR)
 
