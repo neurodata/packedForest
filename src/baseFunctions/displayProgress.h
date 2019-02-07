@@ -10,8 +10,8 @@ namespace fp {
 	class fpDisplayProgressStaticStore{
 
 		private:
-			std::chrono::time_point<system_clock> startTime;
-			std::chrono::time_point<system_clock> stopTime;
+            std::chrono::time_point<std::chrono::system_clock> startTime;
+            std::chrono::time_point<std::chrono::system_clock> stopTime;
 			std::chrono::seconds diffSeconds;
 
 		public:
@@ -22,11 +22,11 @@ namespace fp {
 
 			inline void print(int i){
 			std::chrono::seconds updateTime(10);
-				stopTime = std::chrono::high_resolution_clock::now();
+				stopTime = std::chrono::system_clock::now();
 				diffSeconds =	std::chrono::duration_cast<std::chrono::seconds>(stopTime - startTime);
 				if(diffSeconds > updateTime){
 					std::cout << "..." << i << std::flush;
-					startTime = std::chrono::high_resolution_clock::now();
+					startTime = std::chrono::system_clock::now();
 				}
 			}
 	};
