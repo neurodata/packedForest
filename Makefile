@@ -16,20 +16,25 @@ SRCEXT      := cpp
 DEPEXT      := d
 OBJEXT      := o
 
-#Flags, Libraries and Includes w/o openmp
-#CFLAGS      := -Wall -O3 -DNDEBUG -ffast-math 
-#CFLAGS      := -fopenmp -Wall -O3 -DNDEBUG -ffast-math
-ifndef _OPENMP
-CFLAGS      := -Wall -O3 -DNDEBUG -ffast-math
-else
-CFLAGS      := -Xpreprocessor -fopenmp -Wall -O3 -DNDEBUG -ffast-math
-endif
 
-#LIB         := -fopenmp -lm -lnuma
-ifndef _OPENMP
-LIB         := -lm -O3
-else
-LIB         := -lomp -lm -O3
+#Flags, Libraries and Includes w/o openmp
+# use these flags by default
+CFLAGS := -Xpreprocessor -fopenmp -Wall -O3 -DNDEBUG -ffast-math
+LIB := -lomp -lm -O3
+
+# find the OS type
+UNAME_S := $(shell uname -s)
+# if the OS type is MacOS
+ifeq ($(UNAME_S),Darwin)
+	# if you have the OpenMP libraries, compile with them
+	ifeq (,$(wildcard /usr/local/lib/libomp.a))
+		CFLAGS := -Wall -O3 -DNDEBUG -ffast-math
+		LIB := -lm -O3
+	# otherwise don't
+	else
+		CFLAGS := -Xpreprocessor -fopenmp -Wall -O3 -DNDEBUG -ffast-math
+		LIB := -lomp -lm -O3
+	endif
 endif
 
 
