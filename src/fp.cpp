@@ -32,11 +32,13 @@ int main(int argc, char* argv[]) {
 				break;
 			case 3:
 				forest.setParameter("forestType", "rerf");
-				forest.setParameter("useBinning", 1000);
+forest.setParameter("binSize", 1000);
+				forest.setParameter("binMin", 1000);
 				break;
 			case 4:
 				forest.setParameter("forestType", "rfBase");
-				forest.setParameter("useBinning", 1000);
+				forest.setParameter("binSize", 100);
+				forest.setParameter("binMin", 1000);
 				break;
 			case 5:
 				forest.setParameter("forestType", "inPlace");

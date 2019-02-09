@@ -34,7 +34,7 @@ namespace fp {
 				}
 
 				if(fpSingleton::getSingleton().returnNumTreeBins() < 1){
-					fpSingleton::getSingleton().setNumTreeBins(4);
+					fpSingleton::getSingleton().setNumTreeBins(fpSingleton::getSingleton().returnNumThreads());
 				}
 			}
 
@@ -44,14 +44,14 @@ namespace fp {
 			binnedBase(){
 				checkParameters();
 				numBins =  fpSingleton::getSingleton().returnNumTreeBins();
-generateSeedsForBins();
+				generateSeedsForBins();
 			}
 
 			inline void generateSeedsForBins(){
-binSeeds.resize(numBins);
-for(int i = 0; i < numBins; ++i){
-	binSeeds[i] = fpSingleton::getSingleton().genRandom(std::numeric_limits<int>::max());
-}
+				binSeeds.resize(numBins);
+				for(int i = 0; i < numBins; ++i){
+					binSeeds[i] = fpSingleton::getSingleton().genRandom(std::numeric_limits<int>::max());
+				}
 			}
 
 			inline void printForestType(){
@@ -78,7 +78,7 @@ for(int i = 0; i < numBins; ++i){
 
 				fpDisplayProgress printProgress;
 				bins.resize(numBins);
-				#pragma omp parallel for num_threads(fpSingleton::getSingleton().returnNumThreads())
+#pragma omp parallel for num_threads(fpSingleton::getSingleton().returnNumThreads())
 				for(int j = 0; j < numBins; ++j){
 					bins[j].createBin(binSizes[j], binSeeds[j]);
 				}

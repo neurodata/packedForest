@@ -187,7 +187,7 @@ int main(int argc, char* argv[]) {
 
 		rrIters.createIterators((int)randomOrderVec.size());
 		for(auto i : rrIters.returnList()){
-			__builtin_prefetch (&randomValVec[randomOrderVec[i.returnStart()]], 0, 0);
+			__builtin_prefetch (&randomValVec[randomOrderVec[i.returnStart()]], 0, 3);
 		}
 
 		while(!rrIters.isEmpty()){
@@ -213,7 +213,7 @@ int main(int argc, char* argv[]) {
 
 		for(auto &i : position){
 			i = currPos;
-			__builtin_prefetch (&randomValVec[randomOrderVec[i]], 0, 2);
+			__builtin_prefetch (&randomValVec[randomOrderVec[i]], 0, 3);
 			currPos += binSize;
 		}
 
@@ -221,7 +221,7 @@ int main(int argc, char* argv[]) {
 		for(int j=0; j < binSize;++j){
 			for(auto& i : position){
 				currI = i++;
-				__builtin_prefetch (&randomValVec[randomOrderVec[i]], 1, 1);
+				__builtin_prefetch (&randomValVec[randomOrderVec[i]], 0, 3);
 				zipVec[currI].setPair(randomOrderVec[currI], randomValVec[randomOrderVec[currI]]);
 			}
 		}
@@ -238,21 +238,38 @@ int main(int argc, char* argv[]) {
 		}
 	}else if(alg==7){	
 
+			__builtin_prefetch (&randomValVec[0], 0, 3);
+			__builtin_prefetch (&randomValVec[1], 0, 3);
+			__builtin_prefetch (&randomValVec[2], 0, 3);
+			__builtin_prefetch (&randomValVec[3], 0, 3);
+			__builtin_prefetch (&randomValVec[4], 0, 3);
+			__builtin_prefetch (&randomValVec[5], 0, 3);
+			__builtin_prefetch (&randomValVec[6], 0, 3);
+			__builtin_prefetch (&randomValVec[7], 0, 3);
+
 		for(int i = 0; i < testSize- testSize%8;){
+			__builtin_prefetch (&randomValVec[i+8], 0, 3);
 			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
 			++i;
+			__builtin_prefetch (&randomValVec[i+8], 0, 3);
 			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
 			++i;
+			__builtin_prefetch (&randomValVec[i+8], 0, 3);
 			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
 			++i;
+			__builtin_prefetch (&randomValVec[i+8], 0, 3);
 			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
 			++i;
+			__builtin_prefetch (&randomValVec[i+8], 0, 3);
 			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
 			++i;
+			__builtin_prefetch (&randomValVec[i+8], 0, 3);
 			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
 			++i;
+			__builtin_prefetch (&randomValVec[i+8], 0, 3);
 			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
 			++i;
+			__builtin_prefetch (&randomValVec[i+8], 0, 3);
 			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
 			++i;
 		}

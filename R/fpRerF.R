@@ -17,7 +17,7 @@
 #'
 
 fpRerF <-
-	function(X=NULL, Y=NULL,csvFileName=NULL, columnWithY=NULL,minParent=1, numTreesInForest=100, numCores=1,numTreeBins=NULL, forestType="rerf"){
+	function(X=NULL, Y=NULL,csvFileName=NULL, columnWithY=NULL,minParent=1, numTreesInForest=100, numCores=1,numTreeBins=NULL, forestType="rerf", nodeSizeToBin=NULL, nodeSizeBin=NULL,mtry=NULL, mtryMult=NULL){
 
 		##### Basic Checks
 		################################################
@@ -42,7 +42,23 @@ fpRerF <-
 		forest_module$setParameterInt("numTreesInForest", numTreesInForest)
 		forest_module$setParameterInt("minParent", minParent)
 		forest_module$setParameterInt("numCores", numCores)
+		forest_module$setParameterInt("useRowMajor",0)
 
+		if(!is.null(nodeSizeToBin) & !is.null(nodeSizeBin)){
+			if(nodeSizeBin > nodeSizeToBin){
+				stop("nodeSizeBin must be less than or greater than nodeSizeToBin.")
+			}
+			forest_module$setParameterInt("binSize",nodeSizeBin)
+			forest_module$setParameterInt("binMin",nodeSizeToBin)
+		}
+
+		### Set MTRY if not NULL
+		if(!is.null(mtry)){
+		forest_module$setParameterInt("mtry",mtry)
+		}
+		if(!is.null(mtryMult)){
+		forest_module$setParameterDouble("mtryMult",mtryMult)
+		}
 
 		##### Check X and Y inputs
 		################################################

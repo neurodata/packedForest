@@ -126,6 +126,10 @@ namespace fp {
 				return fpForestInfo.returnMtry();
 			}
 
+			inline double returnMtryMult(){
+				return fpForestInfo.returnMtryMult();
+			}
+
 			inline std::string& returnForestType(){
 				return fpForestInfo.returnForestType();
 			}
@@ -171,6 +175,10 @@ namespace fp {
 			}
 
 			inline int returnBinSize(){
+				return fpForestInfo.returnBinSize();
+			}
+
+			inline int returnBinMin(){
 				return fpForestInfo.returnBinSize();
 			}
 
