@@ -91,7 +91,8 @@ class inputXData
 		}
 
 		inline void prefetchElement(const int &feature, const int &observation){
-			__builtin_prefetch(&XData[feature][observation], 0, 2);
+			&XData[feature][observation];
+			// __builtin_prefetch(&XData[feature][observation], 0, 2);
 		}
 
 		inline void setXElement( const int &feature, const int &observation, const T &value){
@@ -127,7 +128,8 @@ class testXData
 		}
 
 		inline void prefetchElement(const int &feature,const int &observation){
-			__builtin_prefetch(XData[observation][feature], 0, 3);
+			XData[observation][feature];
+			// __builtin_prefetch(XData[observation][feature], 0, 3);
 		}
 
 		inline void setXElement( const int &feature, const int &observation, const T &value){

@@ -35,7 +35,8 @@ namespace fp {
 			}
 
 			inline void prefetchFeatureValue(const int &featureNum, const int &observationNum){
-				__builtin_prefetch(&inputXData[numObs*featureNum + observationNum], 0, 2);
+				&inputXData[numObs*featureNum + observationNum];
+				// __builtin_prefetch(&inputXData[numObs*featureNum + observationNum], 0, 2);
 			}
 
 			inline int returnNumFeatures(){
