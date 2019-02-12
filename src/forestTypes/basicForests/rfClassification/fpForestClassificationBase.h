@@ -39,7 +39,7 @@ namespace fp {
 #ifdef _OPENMP
 #pragma omp parallel for num_threads(fpSingleton::getSingleton().returnNumThreads())
 #endif
-				for(unsigned int i = 0; i < trees.size(); ++i){
+				for(int i = 0; i < trees.size(); ++i){
 					printProgress.displayProgress(i);
 					trees[i].growTree();
 				}

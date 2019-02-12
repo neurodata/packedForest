@@ -307,7 +307,7 @@ namespace fp{
 					}while(numberNotInLeaf);
 
 					for( q=0; q<numOfTreesInBin; q++){
-#pragma omp atomic update
+#pragma omp atomic
 						++preds[bin[currNode[q]].returnClass()];
 					}
 				}
@@ -347,7 +347,7 @@ for(auto i : bin[currNode[q]].returnFeatureNumber()){
 					}while(numberNotInLeaf);
 
 					for( q=0; q<numOfTreesInBin; q++){
-#pragma omp atomic update
+#pragma omp atomic
 						++preds[bin[currNode[q]].returnClass()];
 					}
 				}

@@ -5,12 +5,18 @@ To compile:
 
 - Linux:
 
+    `sudo apt install libomp-dev`
+
     ```sh
     make
     ```
 
 - Windows:
 
+    Install: [Visual Studio Build Tools](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2017)
+
+    From the native build tools command prompt environment:
+
     ```cmd
-    cl /EHsc src\fp.cpp
+    cl /EHsc src\fp.cpp /openmp
     ```
