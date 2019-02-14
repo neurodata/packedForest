@@ -145,7 +145,6 @@ namespace fp {
 				for(int k = 0; k < numBins; ++k){
 					bins[k].predictBinObservation(observation, predictions);
 				}
-
 				int bestClass = 0;
 				for(int j = 1; j < fpSingleton::getSingleton().returnNumClasses(); ++j){
 					if(predictions[bestClass] < predictions[j]){
