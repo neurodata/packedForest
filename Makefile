@@ -30,7 +30,7 @@ ifeq ($(UNAME_S),Darwin)
 ifneq (,$(shell g++-8 --version))
 	CC := g++-8 -std=c++11
 	CFLAGS := -Xpreprocessor -fopenmp -Wall -O3 -DNDEBUG -ffast-math
-	LIB := -lomp -lm -O3
+	LIB := -fopenmp -lm -O3
 else ifneq (,$(shell ls /usr/local/lib/ | grep libomp))
 	# if you have the OpenMP libraries, compile with them
 	CFLAGS := -Xpreprocessor -fopenmp -Wall -O3 -DNDEBUG -ffast-math
