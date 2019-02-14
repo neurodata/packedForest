@@ -37,7 +37,6 @@ namespace fp {
 		public:
 			fpDisplayProgressStaticStore staticPrint;
 		inline void displayProgress(int treeNum) { 
-			//static fpDisplayProgressStaticStore staticPrint;
 			staticPrint.print(treeNum); } 
 	};
 

@@ -126,10 +126,6 @@ namespace fp {
 
 
 				float testAccuracy(){
-					//	timeLogger x;
-					//	x.startSortTimer();
-					//	x.stopSortTimer();
-					//	x.printGrowTime();
 					float testError;
 					loadTestData();
 					testError = forest->testForest();
