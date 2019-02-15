@@ -4,6 +4,7 @@
 #include "dataset/inputCSVData.h"
 #include "dataset/inputMatrixData.h"
 #include "dataset/inputMatrixDataColMajor.h"
+#include "dataset/inputMatrixDataRowMajor.h"
 #include "fpInfo.h"
 #include <string>
 #include <vector>
@@ -60,7 +61,7 @@ namespace fp {
 
 			void fpLoadData(const DATA_TYPE_X* x, const DATA_TYPE_Y* y,int numObs, int numFeatures,fpInfo& settings){
 				if(settings.returnUseRowMajor()){
-				inData = new inputMatrixData<DATA_TYPE_X, DATA_TYPE_Y>(x,y,numObs,numFeatures);
+				inData = new inputMatrixDataRowMajor<DATA_TYPE_X, DATA_TYPE_Y>(x,y,numObs,numFeatures);
 				}else{
 				inData = new inputMatrixDataColMajor<DATA_TYPE_X, DATA_TYPE_Y>(x,y,numObs,numFeatures);
 				}

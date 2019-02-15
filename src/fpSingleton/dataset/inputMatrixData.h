@@ -29,15 +29,7 @@ namespace fp {
 			inline Q returnClassOfObservation(const int &observationNum){
 				return inputYData[observationNum];
 			}
-
-			inline T returnFeatureValue(const int &featureNum, const int &observationNum){
-				return inputXData[observationNum*numFeatures + featureNum];
-			}
-
-			inline void prefetchFeatureValue(const int &featureNum, const int &observationNum){
-				__builtin_prefetch(&inputXData[observationNum*numFeatures + featureNum], 0, 2);
-			}
-
+			
 			inline int returnNumFeatures(){
 				return numFeatures;
 			}
