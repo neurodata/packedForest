@@ -18,7 +18,4 @@ script:
   - make
   - cd test
   - make
-  - cd ../
-
-after_success:
-- coveralls --root . -E ".*CMakeFiles.*" 
+  
