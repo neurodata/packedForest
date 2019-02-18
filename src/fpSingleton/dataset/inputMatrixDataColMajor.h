@@ -17,13 +17,13 @@ class inputMatrixDataColMajor : public inputMatrixData<T, Q>
 	inline T returnFeatureValue(const int &featureNum,
 								const int &observationNum)
 	{
-		return this->inputXData[this->returnNumObservations() * featureNum + observationNum];
+		return this->inputXData[this->numObs * featureNum + observationNum];
 	}
 
 	inline void prefetchFeatureValue(const int &featureNum,
 									 const int &observationNum)
 	{
-		__builtin_prefetch(&this->inputXData[this->returnNumObservations() * featureNum + observationNum], 0, 2);
+		__builtin_prefetch(&this->inputXData[this->numObs * featureNum + observationNum], 0, 2);
 	}
 };
 

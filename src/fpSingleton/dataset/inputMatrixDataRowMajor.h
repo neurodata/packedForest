@@ -17,13 +17,13 @@ class inputMatrixDataRowMajor : public inputMatrixData<T, Q>
     inline T returnFeatureValue(const int &featureNum,
                                 const int &observationNum)
     {
-        return this->inputXData[observationNum * this->returnNumFeatures() + featureNum];
+        return this->inputXData[observationNum * this->numFeatures + featureNum];
     }
 
     inline void prefetchFeatureValue(const int &featureNum,
                                      const int &observationNum)
     {
-        __builtin_prefetch(&this->inputXData[observationNum * this->returnNumFeatures() + featureNum], 0, 2);
+        __builtin_prefetch(&this->inputXData[observationNum * this->numFeatures + featureNum], 0, 2);
     }
 };
 } // namespace fp
