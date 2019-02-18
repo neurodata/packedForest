@@ -2,7 +2,6 @@
 #define fpData_h
 
 #include "dataset/inputCSVData.h"
-#include "dataset/inputMatrixData.h"
 #include "dataset/inputMatrixDataColMajor.h"
 #include "dataset/inputMatrixDataRowMajor.h"
 #include "fpInfo.h"

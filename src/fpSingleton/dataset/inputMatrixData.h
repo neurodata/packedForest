@@ -11,7 +11,7 @@ namespace fp {
 	template <typename T, typename Q>
 		class inputMatrixData : public inputData<T,Q>
 	{
-		private:
+		protected:
 			const T* inputXData;
 			const Q* inputYData;
 			int numClasses;
@@ -29,7 +29,7 @@ namespace fp {
 			inline Q returnClassOfObservation(const int &observationNum){
 				return inputYData[observationNum];
 			}
-			
+
 			inline int returnNumFeatures(){
 				return numFeatures;
 			}
@@ -74,6 +74,9 @@ namespace fp {
 					std::cout << "\n";
 				}
 			}
+
+			T returnFeatureValue(const int &featureNum,
+								 const int &observationNum)=0;
 
 			void printYValues(){
 				for(int j = 0; j < returnNumObservations(); j++){
