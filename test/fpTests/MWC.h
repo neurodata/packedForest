@@ -20,6 +20,40 @@ TEST(setSeed, seed_low)
     }
 }
 
+TEST(setSeed, random_vector)
+{
+    int seed = 123;
+    std::vector<int> seq1;
+
+    randomNumberRerFMWC randNum1;
+    randNum1.initialize(seed);
+    for (int i = 0; i < 1000; ++i)
+    {
+        seq1.push_back(randNum1.gen());
+    }
+
+    std::vector<int> seq2;
+    randomNumberRerFMWC randNum2;
+    randNum2.initialize(seed);
+    for (int i = 0; i < 1000; ++i)
+    {
+        seq2.push_back(randNum2.gen());
+    }
+
+    EXPECT_EQ(seq1, seq2);
+
+    //use a diff. seed
+    std::vector<int> seq3;
+    randomNumberRerFMWC randNum3;
+    randNum3.initialize(seed + 1);
+    for (int i = 0; i < 1000; ++i)
+    {
+        seq3.push_back(randNum3.gen());
+    }
+
+    EXPECT_NE(seq1, seq3);
+}
+
 TEST(setSeed, seed_high)
 {
     long seed = 2351351351351351;
