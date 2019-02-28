@@ -170,6 +170,7 @@ int main(int argc, char* argv[]) {
 	}else if(alg==2){
 		for(int i = 0; i < testSize; ++i){
 			__builtin_prefetch (&randomValVec[randomOrderVec[i]], 0, 0);
+			__builtin_prefetch (&zipVec[i], 1, 0);
 		}
 		for(int i = 0; i < testSize; ++i){
 			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
@@ -274,6 +275,20 @@ int main(int argc, char* argv[]) {
 			++i;
 		}
 		for(int i = testSize- testSize%8; i < testSize; ++i){
+			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
+		}
+}else if(alg==8){
+	int numAtTime = 1000;
+		for(int i = 0; i < numAtTime; ++i){
+			__builtin_prefetch (&randomValVec[randomOrderVec[i]], 0, 0);
+			__builtin_prefetch (&zipVec[i], 1, 0);
+		}
+		for(int i = 0; i < testSize-numAtTime; ++i){
+__builtin_prefetch (&randomValVec[randomOrderVec[i+numAtTime]], 0, 0);
+			__builtin_prefetch (&zipVec[i+numAtTime], 1, 0);
+			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
+		}
+for(int i = testSize-numAtTime; i < testSize; ++i){
 			zipVec[i].setPair(randomOrderVec[i], randomValVec[randomOrderVec[i]]);
 		}
 	}else{	

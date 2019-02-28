@@ -84,6 +84,7 @@ namespace fp{
 							nodeIndices[randomObsID] = tempMoveObs;
 						}
 					}
+				indicesInNode.sortVectors();	
 
 				}
 
